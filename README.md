@@ -1,6 +1,6 @@
 # Filkom News Reader Android
-[![Build Status](https://travis-ci.org/ngengs/filkom-news-reader_andoird.svg?branch=development)](https://travis-ci.org/ngengs/filkom-news-reader_android)
-[![GitHub release](https://img.shields.io/github/release/ngengs/filkom-news-reader_android.svg)](https://github.com/ngengs/filkom-news-reader_android/releases/latest)
+[![Build Status](https://travis-ci.org/ngengs/filkom-news-reader_application-android.svg?branch=development)](https://travis-ci.org/ngengs/filkom-news-reader_application-android)
+[![GitHub release](https://img.shields.io/github/release/ngengs/filkom-news-reader_application-android.svg)](https://github.com/ngengs/filkom-news-reader_application-android/releases/latest)
 
 ![Logo](/.github/logo/logo.png?raw=true)
 
@@ -35,7 +35,7 @@ This is Android application to consume API from the [Filkom News Reader Server](
 - Android SDK
 
 #### Preparation
-- Clone this [Repo](https://github.com/ngengs/filkom-news-reader_android)
+- Clone this [Repo](https://github.com/ngengs/filkom-news-reader_application-android)
 - Prepare your sign key for release and debug build, read [here](https://developer.android.com/studio/publish/app-signing.html) if you dont know how to do that
 - Rename `example.keystore.properties` to `keystore.properties`
 - Change value inside `keystore.properties`
@@ -45,7 +45,7 @@ This is Android application to consume API from the [Filkom News Reader Server](
   ```
   $ ./gradlew clean assembleRelease
   ```
-- Your apk will located at `app/build/outputs/apk/releases/`
+- Your apk will located at `app/build/outputs/apk/release/`
 
 ## Author
 **Rizky Kharisma** (https://github.com/ngengs)

@@ -25,7 +25,7 @@ deploy:
   provider: releases
   api_key: $release_token
   file_glob: true
-  file: "app/build/outputs/apk/releases/*-release.apk"
+  file: "app/build/outputs/apk/release/*-release.apk"
   skip_cleanup: true
   on:
     repo: ngengs/filkom-news-reader_application-android
