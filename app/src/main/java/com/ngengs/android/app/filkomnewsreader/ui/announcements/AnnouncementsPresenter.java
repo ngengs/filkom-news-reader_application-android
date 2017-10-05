@@ -19,29 +19,24 @@ package com.ngengs.android.app.filkomnewsreader.ui.announcements;
 
 import com.ngengs.android.app.filkomnewsreader.data.enumeration.Types;
 import com.ngengs.android.app.filkomnewsreader.data.model.Announcement;
-import com.ngengs.android.app.filkomnewsreader.data.response.AnnouncementListResponseData;
-import com.ngengs.android.app.filkomnewsreader.network.Connection;
-import com.ngengs.android.app.filkomnewsreader.network.FilkomService;
+import com.ngengs.android.app.filkomnewsreader.data.sources.AnnouncementSource;
+import com.ngengs.android.app.filkomnewsreader.data.sources.BaseSource;
 import com.ngengs.android.app.filkomnewsreader.utils.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-
-public class AnnouncementsPresenter implements AnnouncementsContract.Presenter {
+public class AnnouncementsPresenter
+        implements AnnouncementsContract.Presenter, BaseSource.LoadListDataCallback<Announcement> {
 
     private final AnnouncementsContract.View mView;
+    private AnnouncementSource mSource;
     private List<Announcement> mData;
     private int mPageNow;
     private int mPageTotal;
-    private Disposable mDisposable;
-    private FilkomService mFilkomService;
     private Logger mLogger;
 
-    public AnnouncementsPresenter(AnnouncementsContract.View mView, Logger logger) {
+    AnnouncementsPresenter(AnnouncementsContract.View mView, Logger logger) {
         if (mView != null) {
             this.mView = mView;
             this.mView.setPresenter(this);
@@ -49,13 +44,13 @@ public class AnnouncementsPresenter implements AnnouncementsContract.Presenter {
             throw new RuntimeException("Cant bind view");
         }
         this.mLogger = logger;
+        mSource = AnnouncementSource.getInstance(mView.getCacheDirectory());
     }
 
     @Override
     public void start() {
         mLogger.d("start() called");
         setAnnouncement(new ArrayList<>(), 1, 1);
-        mFilkomService = Connection.build(mView.getCacheDirectory());
     }
 
     @Override
@@ -71,11 +66,11 @@ public class AnnouncementsPresenter implements AnnouncementsContract.Presenter {
         } else if (page <= mPageTotal) {
             boolean process = false;
             if (mView.isSwipeRefreshLoading() && page == 1) {
-                if (isInProgress()) {
+                if (mSource.isInProcess()) {
                     unbind();
                 }
                 process = true;
-            } else if (!isInProgress()) {
+            } else if (!mSource.isInProcess()) {
                 if (page == 1) {
                     mView.setIndicator(Types.TYPE_INDICATOR_EMPTY);
                     mView.showIndicator(true);
@@ -84,15 +79,7 @@ public class AnnouncementsPresenter implements AnnouncementsContract.Presenter {
                 process = true;
             }
             if (process) {
-                mDisposable = mFilkomService
-                        .listAnnouncement(page)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                announcementListResponse -> onDataLoad(
-                                        announcementListResponse.getData()),
-                                this::onDataError, this::onDataComplete
-                        );
+                mSource.getDataPaged(page, this);
             }
         }
     }
@@ -163,48 +150,41 @@ public class AnnouncementsPresenter implements AnnouncementsContract.Presenter {
         }
     }
 
-    private void onDataLoad(AnnouncementListResponseData responseData) {
-        mLogger.d("onDataLoad() called with: responseData = [" + responseData + "]");
-        mView.showIndicator(false);
-        if (responseData != null) {
-            mLogger.d("onDataLoad: %s", "Response not Null");
-            mPageTotal = responseData.getPageTotal();
-            mPageNow = responseData.getPageNow();
-            if (responseData.getAnnouncements() != null &&
-                responseData.getAnnouncements().size() > 0) {
-                mLogger.d("onDataLoad: %s", "announcement not null");
-                if (mPageNow == 1) mView.clearAnnouncement();
-                mData.addAll(responseData.getAnnouncements());
-                mView.addAnnouncement(responseData.getAnnouncements());
-            }
-        }
-    }
-
-    private void onDataError(Throwable throwable) {
-        mLogger.e(throwable, "onDataError: ");
-        mView.setIndicator(Types.TYPE_INDICATOR_ERROR);
-    }
-
-    private void onDataComplete() {
-        mLogger.d("onDataComplete() called");
-        if (mPageNow == 1) mView.showProgress(false);
-        if (mView.isSwipeRefreshLoading()) mView.stopSwipeRefreshLoading();
-        unbind();
-    }
-
     @Override
     public void unbind() {
         mLogger.d("unbind() called");
-        if (mDisposable != null) {
-            if (!mDisposable.isDisposed()) {
-                mDisposable.dispose();
+        mSource.release();
+    }
+
+    @Override
+    public void onDataLoaded(int pageNow, int pageTotal, List<Announcement> data) {
+        mLogger.d("onDataLoaded() called with: pageNow = [" + pageNow + "], pageTotal = [" +
+                  pageTotal + "], data = [" + data + "]");
+        mView.showIndicator(false);
+        if (data != null) {
+            mLogger.d("onDataLoad: %s", "Response not Null");
+            mPageTotal = pageTotal;
+            mPageNow = pageNow;
+            if (data.size() > 0) {
+                mLogger.d("onDataLoad: %s", "announcement not null");
+                if (mPageNow == 1) mView.clearAnnouncement();
+                mData.addAll(data);
+                mView.addAnnouncement(data);
             }
-            mDisposable = null;
         }
     }
 
     @Override
-    public boolean isInProgress() {
-        return mDisposable != null;
+    public void onDataFailed(Throwable throwable) {
+        mLogger.e(throwable, "onDataFailed: ");
+        mView.setIndicator(Types.TYPE_INDICATOR_ERROR);
+    }
+
+    @Override
+    public void onDataFinished() {
+        mLogger.d("onDataFinished() called");
+        if (mPageNow == 1) mView.showProgress(false);
+        if (mView.isSwipeRefreshLoading()) mView.stopSwipeRefreshLoading();
+        unbind();
     }
 }

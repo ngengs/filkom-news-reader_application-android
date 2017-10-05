@@ -15,8 +15,34 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.ngengs.android.app.filkomnewsreader.ui;
+package com.ngengs.android.app.filkomnewsreader.data.sources;
 
-public interface NetworkBasePresenter extends BasePresenter {
-    void unbind();
+import android.support.annotation.NonNull;
+
+import java.util.List;
+
+public interface BaseSource<T> {
+    void getData(@NonNull String id, @NonNull LoadSingleDataCallback<T> callback);
+
+    void getDataPaged(int page, @NonNull LoadListDataCallback<T> callback);
+
+    boolean isInProcess();
+
+    void release();
+
+    interface LoadSingleDataCallback<T> {
+        void onDataLoaded(T data);
+
+        void onDataFailed(Throwable throwable);
+
+        void onDataFinished();
+    }
+
+    interface LoadListDataCallback<T> {
+        void onDataLoaded(int pageNow, int pageTotal, List<T> data);
+
+        void onDataFailed(Throwable throwable);
+
+        void onDataFinished();
+    }
 }

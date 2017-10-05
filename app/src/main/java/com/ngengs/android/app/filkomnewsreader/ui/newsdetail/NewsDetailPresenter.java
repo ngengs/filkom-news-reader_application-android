@@ -18,23 +18,18 @@
 package com.ngengs.android.app.filkomnewsreader.ui.newsdetail;
 
 import com.ngengs.android.app.filkomnewsreader.data.model.News;
-import com.ngengs.android.app.filkomnewsreader.network.Connection;
-import com.ngengs.android.app.filkomnewsreader.network.FilkomService;
+import com.ngengs.android.app.filkomnewsreader.data.sources.NewsSource;
 import com.ngengs.android.app.filkomnewsreader.utils.logger.Logger;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-
-public class NewsDetailPresenter implements NewsDetailContract.Presenter {
+public class NewsDetailPresenter
+        implements NewsDetailContract.Presenter, NewsSource.LoadSingleDataCallback<News> {
 
     private final NewsDetailContract.View mView;
+    private NewsSource mSource;
     private News mData;
-    private Disposable mDisposable;
-    private FilkomService mFilkomService;
     private Logger mLogger;
 
-    public NewsDetailPresenter(NewsDetailContract.View mView, Logger logger) {
+    NewsDetailPresenter(NewsDetailContract.View mView, Logger logger) {
         if (mView != null) {
             this.mView = mView;
             this.mView.setPresenter(this);
@@ -42,35 +37,27 @@ public class NewsDetailPresenter implements NewsDetailContract.Presenter {
             throw new RuntimeException("Cant bind view");
         }
         this.mLogger = logger;
+        mSource = NewsSource.getInstance(mView.getCacheDirectory());
     }
 
     @Override
     public void start() {
         mLogger.d("start() called");
-        mDisposable = null;
-        mFilkomService = Connection.build(mView.getCacheDirectory());
     }
 
     @Override
     public void loadDetailFromServer() {
         mLogger.d("loadDetailFromServer() called");
         if (mData != null && mData.getContent() != null) {
-            onDataLoad(mData);
-            onDataComplete();
+            onDataLoaded(mData);
+            onDataFinished();
         } else {
             if (!mView.isNetworkConnected()) {
                 mLogger.d("loadDetailFromServer: %s", "Error");
-            } else if (mData != null && !isInProgress()) {
+            } else if (mData != null && !mSource.isInProcess()) {
                 mView.showProgress(true);
 
-                mDisposable = mFilkomService.detailNews(mData.getId())
-                                            .subscribeOn(Schedulers.io())
-                                            .observeOn(AndroidSchedulers.mainThread())
-                                            .subscribe(
-                                                    newsDetailResponse -> onDataLoad(
-                                                            newsDetailResponse.getData()),
-                                                    this::onDataError, this::onDataComplete
-                                            );
+                mSource.getData(mData.getId(), this);
             } else {
                 throw new RuntimeException("Data not loaded before request start");
             }
@@ -86,11 +73,18 @@ public class NewsDetailPresenter implements NewsDetailContract.Presenter {
     @Override
     public void setNews(News news) {
         mLogger.d("setNews() called with: news = [" + news + "]");
-        onDataLoad(news);
+        onDataLoaded(news);
     }
 
-    private void onDataLoad(News data) {
-        mLogger.d("onDataLoad() called with: data = [" + data + "]");
+    @Override
+    public void unbind() {
+        mLogger.d("unbind() called");
+        mSource.release();
+    }
+
+    @Override
+    public void onDataLoaded(News data) {
+        mLogger.d("onDataLoaded() called with: data = [" + data + "]");
         if (data != null) {
             News temp = mData;
             mData = data;
@@ -110,33 +104,18 @@ public class NewsDetailPresenter implements NewsDetailContract.Presenter {
         }
     }
 
-    private void onDataComplete() {
-        mLogger.d("onDataComplete() called");
+    @Override
+    public void onDataFailed(Throwable throwable) {
+        mLogger.e(throwable, "onDataFailed: ");
+    }
+
+    @Override
+    public void onDataFinished() {
+        mLogger.d("onDataFinished() called");
         mView.showProgress(false);
         if (mData != null && mData.getLink() != null) {
             mView.showShareButton(true);
         }
-        mDisposable = null;
-    }
-
-    private void onDataError(Throwable throwable) {
-        mLogger.e(throwable, "onDataError: ");
-        mDisposable = null;
-    }
-
-    @Override
-    public void unbind() {
-        mLogger.d("unbind() called");
-        if (mDisposable != null) {
-            if (!mDisposable.isDisposed()) {
-                mDisposable.dispose();
-            }
-            mDisposable = null;
-        }
-    }
-
-    @Override
-    public boolean isInProgress() {
-        return mDisposable != null;
+        unbind();
     }
 }
