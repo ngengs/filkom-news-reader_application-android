@@ -1,0 +1,39 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Filkom News Reader</string>
+
+    <string name="title_news">Berita</string>
+    <string name="title_announcement">Pengumuman</string>
+    <string name="title_settings">Pengaturan</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="indicator_load_data">Mengambil data dari server</string>
+    <string name="indicator_error">Terjadi kesalahan saat mengambil data</string>
+    <string name="indicator_error_no_network">Tidak terdapat koneksi untuk mendapatkan data</string>
+
+    <string name="send_to">Bagikan kepada</string>
+
+    <string name="open_original_link">Lihat artikel pada website</string>
+    <string name="other">Lainnya</string>
+
+    <string name="settings_title_news_subscribe">Pemberitahuan Berita</string>
+    <string name="settings_title_announcmenet_subscribe">Pemberitahuan Pengumuman</string>
+    <string name="settings_summary_news_subscribe">Pemberitahuan akan tampil saat terdapat berita baru dari Filkom</string>
+    <string name="settings_summary_news_unsubscribe">Pemberitahuan tidak akan tampil saat terdapat berita baru dari Filkom</string>
+    <string name="settings_summary_announcement_subscribe">Pemberitahuan akan tampil saat terdapat pengumuman baru dari Filkom</string>
+    <string name="settings_summary_announcement_unsubscribe">Pemberitahuan tidak akan tampil saat terdapat pengumuman baru dari Filkom</string>
+
+    <string name="notification_title_news">Berita Baru</string>
+    <string name="notification_title_announcement">Pengumuman Baru</string>
+    <string name="notification_message_news" tools:ignore="PluralsCandidate">Terdapat %1$d berita baru dari Filkom</string>
+    <string name="notification_message_announcement" tools:ignore="PluralsCandidate">Terdapat %1$d pengumuman baru dari Filkom</string>
+    <string name="notification_message_more" tools:ignore="PluralsCandidate">+%1$d lainnya</string>
+    <string name="image_descriptor_news_header_image_header">News header Image Header</string>
+    <string name="image_descriptor_icon_calendar">Icon Calendar</string>
+    <string name="image_descriptor_image_indicator">Image indicator</string>
+    <string name="image_descriptor_list_news_image">List news image</string>
+    <string name="image_descriptor_detail_news_image_content">Detail news image content</string>
+    <string name="image_descriptor_navigation_image_logo">Navigation image logo</string>
+
+</resources>

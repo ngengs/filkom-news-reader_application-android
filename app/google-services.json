@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "544858656156",
+    "firebase_url": "https://filkom-news-reader.firebaseio.com",
+    "project_id": "filkom-news-reader",
+    "storage_bucket": "filkom-news-reader.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:544858656156:android:405374924fed19c2",
+        "android_client_info": {
+          "package_name": "com.ngengs.android.app.filkomnewsreader"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "544858656156-0vkjdv5auncu1stli3osr7f5lp4qs74i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnZf4sm9qHaKD1wIssqhTZINQhtdHsWuE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:544858656156:android:e5ee10a411f2d714",
+        "android_client_info": {
+          "package_name": "com.ngengs.android.app.filkomnewsreader.development"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "544858656156-0vkjdv5auncu1stli3osr7f5lp4qs74i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnZf4sm9qHaKD1wIssqhTZINQhtdHsWuE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

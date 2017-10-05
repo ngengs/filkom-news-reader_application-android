@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2196f3</color>
+    <color name="colorPrimaryDark">#1976d2</color>
+    <color name="colorPrimaryDarker">#0D47A1</color>
+    <color name="colorAccent">#FF9800</color>
+
+    <color name="colorPlaceholderImage">#4f000000</color>
+    <color name="colorBackground">#EEEEEE</color>
+
+    <!--Chips-->
+    <color name="colorChipsBackground">#E0E0E0</color>
+    <color name="colorChipsBackgroundIcon">#989898</color>
+    <color name="colorChipsIcon">#FFF</color>
+    <color name="colorChipsText">#989898</color>
+
+    <!--BlockQuotes-->
+    <color name="colorBlockQuotesBorder">@color/colorPrimary</color>
+
+    <!--Content Item-->
+    <color name="colorContentItemBackground">#FFF</color>
+    <color name="colorContentItemText">#111</color>
+
+    <!--Indicator-->
+    <color name="colorIndicatorImage">#464646</color>
+
+    <!--Launcher-->
+    <color name="ic_launcher_background">@color/colorPrimary</color>
+</resources>

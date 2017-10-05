@@ -1,0 +1,132 @@
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+// Signing definition
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = null
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties = new Properties()
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+def versionPropertiesFile = rootProject.file("version.properties")
+def versionProperties
+if (versionPropertiesFile.exists()) {
+    versionProperties = new Properties()
+    versionProperties.load(new FileInputStream(versionPropertiesFile))
+} else {
+    throw new Exception('Version properties file not Found')
+}
+
+//Manifest version information!
+int versionMajor = versionProperties['VERSION_MAJOR'] as int
+int versionMinor = versionProperties['VERSION_MINOR'] as int
+int versionPatch = versionProperties['VERSION_PATCH'] as int
+int versionBuild = versionProperties['VERSION_BUILD'] as int // always bump build number.
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
+    defaultConfig {
+        applicationId "com.ngengs.android.app.filkomnewsreader"
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode((versionMajor * 10000000) + (versionMinor * 100000) + (versionPatch * 100) + versionBuild)
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    applicationVariants.all { variant ->
+        if (variant.name != "debug") {
+            variant.outputs.all { output ->
+                outputFileName = "${applicationId}-v${versionName}-build.${getBuildDate()}-${variant.name}.apk"
+            }
+        }
+    }
+
+    signingConfigs {
+        release {
+            if (keystoreProperties != null) {
+                storeFile file(keystoreProperties['STORE_LOCATION_RELEASE'])
+                storePassword keystoreProperties['STORE_PASSWORD_RELEASE']
+                keyAlias keystoreProperties['KEY_ALIAS_RELEASE']
+                keyPassword keystoreProperties['KEY_PASSWORD_RELEASE']
+            }
+        }
+
+        debug {
+            if (keystoreProperties != null) {
+                storeFile file(keystoreProperties['STORE_LOCATION_DEBUG'])
+                storePassword keystoreProperties['STORE_PASSWORD_DEBUG']
+                keyAlias keystoreProperties['KEY_ALIAS_DEBUG']
+                keyPassword keystoreProperties['KEY_PASSWORD_DEBUG']
+            }
+        }
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            if (keystorePropertiesFile.exists()) {
+                signingConfig signingConfigs.release
+            }
+            proguardFiles getDefaultProguardFile('proguard-android.txt')
+            proguardFiles fileTree(include: ['*.pro'], dir: 'proguards').asList().toArray()
+        }
+        debug {
+            minifyEnabled false
+            debuggable true
+            applicationIdSuffix '.development'
+
+            if (keystorePropertiesFile.exists()) {
+                signingConfig signingConfigs.debug
+            }
+        }
+    }
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+static def getBuildDate() {
+    def date = new Date().format('yyyyMMdd')
+    return date
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true
+    }
+    api 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:preference-v7:26.1.0'
+    implementation 'com.android.support:cardview-v7:26.1.0'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation 'com.google.code.gson:gson:2.8.1'
+    implementation 'com.google.firebase:firebase-core:11.4.2'
+    implementation 'com.google.firebase:firebase-messaging:11.4.2'
+    implementation 'com.squareup.okhttp3:okhttp:3.8.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.github.bumptech.glide:glide:4.0.0'
+    implementation 'com.github.bumptech.glide:okhttp3-integration:4.0.0@aar'
+    implementation 'com.jakewharton.timber:timber:4.5.1'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.4'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:support-v4:26.1.0'
+    implementation 'com.android.support:support-vector-drawable:26.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+}
+
+apply plugin: 'com.google.gms.google-services'
