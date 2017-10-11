@@ -26,7 +26,7 @@ int versionBuild = versionProperties['VERSION_BUILD'] as int // always bump buil
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.ngengs.android.app.filkomnewsreader"
         minSdkVersion 16
