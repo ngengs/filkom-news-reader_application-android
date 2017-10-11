@@ -99,7 +99,7 @@ static def getBuildDate() {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+    api('com.crashlytics.sdk.android:crashlytics:2.7.0@aar') {
         transitive = true
     }
     api 'com.android.support:appcompat-v7:26.1.0'
