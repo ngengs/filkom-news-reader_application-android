@@ -20,7 +20,7 @@ before_install:
 - chmod +x gradlew
 script:
 - "./gradlew clean lint test assembleDebug"
-- if [[ "$TRAVIS_BRANCH" == "master" ]];then ./gradlew assembleRelease; fi
+- if [[ "$TRAVIS_BRANCH" == "master" ]];then ./gradlew clean assembleRelease; fi
 deploy:
   provider: releases
   api_key: $release_token
