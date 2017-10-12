@@ -191,7 +191,7 @@ public class AnnouncementsFragment extends Fragment implements AnnouncementsCont
         switch (indicatorType) {
             case Types.TYPE_INDICATOR_EMPTY:
                 mImageIndicator.setImageDrawable(
-                        VectorDrawableCompat.create(getResources(), R.drawable.ic_menu_news, null));
+                        VectorDrawableCompat.create(getResources(), R.drawable.ic_menu_announcement, null));
                 mTextIndicator.setText(R.string.indicator_load_data);
                 break;
             case Types.TYPE_INDICATOR_ERROR:
