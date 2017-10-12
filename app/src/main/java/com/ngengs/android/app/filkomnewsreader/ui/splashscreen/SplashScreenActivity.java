@@ -26,6 +26,7 @@ import android.support.v7.preference.PreferenceManager;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.ngengs.android.app.filkomnewsreader.BuildConfig;
 import com.ngengs.android.app.filkomnewsreader.R;
 import com.ngengs.android.app.filkomnewsreader.data.enumeration.Preferences;
 import com.ngengs.android.app.filkomnewsreader.ui.main.MainActivity;
@@ -54,6 +55,7 @@ public class SplashScreenActivity extends AppCompatActivity implements SplashScr
             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, bundle);
         }
         mPresenter.runFirstStart(firstRun);
+        mPresenter.runInDebug(BuildConfig.DEBUG);
     }
 
     @Override
@@ -81,5 +83,11 @@ public class SplashScreenActivity extends AppCompatActivity implements SplashScr
     public void subscribeTopic(String key) {
         Timber.d("subscribeTopic() called with: key = [" + key + "]");
         FirebaseMessaging.getInstance().subscribeToTopic(key);
+    }
+
+    @Override
+    public void unsubscribeTopic(String key) {
+        Timber.d("unsubscribeTopic() called with: key = [" + key + "]");
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(key);
     }
 }

@@ -23,6 +23,7 @@ import com.ngengs.android.app.filkomnewsreader.ui.BaseView;
 class SplashScreenContract {
     interface Presenter extends BasePresenter {
         void runFirstStart(boolean firstStart);
+        void runInDebug(boolean debug);
     }
 
     @SuppressWarnings("SameParameterValue")
@@ -32,5 +33,7 @@ class SplashScreenContract {
         void changePreferences(String key, boolean value);
 
         void subscribeTopic(String key);
+
+        void unsubscribeTopic(String key);
     }
 }
