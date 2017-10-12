@@ -15,12 +15,24 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.ngengs.android.app.filkomnewsreader.data.enumeration;
+package com.ngengs.android.app.filkomnewsreader.ui.inappbrowser;
 
-public final class Preferences {
-    public final static String PREF_KEY_FIRST_RUN = "first_run";
-    public static final String PREF_KEY_NOTIFICATION_DEBUG = "subscribe_debug";
-    public static final String PREF_KEY_NOTIFICATION_NEWS = "subscribe_news";
-    public static final String PREF_KEY_NOTIFICATION_ANNOUNCEMENT = "subscribe_announcement";
-    public static final String PREF_KEY_IN_APP_BROWSER = "in_app_browser";
+import android.support.annotation.NonNull;
+
+import com.ngengs.android.app.filkomnewsreader.ui.BasePresenter;
+import com.ngengs.android.app.filkomnewsreader.ui.BaseView;
+
+interface InAppBrowserContract {
+    interface Presenter extends BasePresenter{
+        void selectMenuOpenBrowser();
+        void selectMenuShare();
+        void setTitle(String title);
+    }
+    interface View extends BaseView<Presenter> {
+        void loadBrowser(@NonNull String url);
+        void setAppTitle(@NonNull String title);
+        void setAppUrl(@NonNull String url);
+        void openOtherBrowser(@NonNull String url);
+        void shareLink(@NonNull String url, @NonNull String title);
+    }
 }

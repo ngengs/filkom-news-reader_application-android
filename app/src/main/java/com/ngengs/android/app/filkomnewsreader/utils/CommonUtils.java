@@ -19,7 +19,13 @@ package com.ngengs.android.app.filkomnewsreader.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 
 import com.ngengs.android.app.filkomnewsreader.R;
 
@@ -31,11 +37,17 @@ public final class CommonUtils {
     }
 
     public static void shareLink(Context context, String title, String uriString) {
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, title + " " + uriString);
-        sendIntent.setType("text/plain");
+        Intent sendIntent = CommonUtils.shareLink(title + " " + uriString);
         context.startActivity(
                 Intent.createChooser(sendIntent, context.getString(R.string.send_to)));
     }
+
+    public static Intent shareLink(String textToShare) {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, textToShare);
+        sendIntent.setType("text/plain");
+        return sendIntent;
+    }
+
 }

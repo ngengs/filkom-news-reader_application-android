@@ -214,7 +214,7 @@ public class NewsFragment extends Fragment implements NewsContract.View {
         Timber.d("openNewsDetail() called with: news = [" + news + "]");
         logClickEvent("detail");
         Intent intent = new Intent(getContext(), NewsDetailActivity.class);
-        intent.putExtra("DATA", news);
+        intent.putExtra(NewsDetailActivity.INTENT_ARGS_DATA, news);
         startActivity(intent);
     }
 

@@ -122,7 +122,9 @@ public class AnnouncementsPresenter
     public boolean onClick(int position) {
         mLogger.d("onClick() called with: position = [" + position + "]");
         if (position < mData.size()) {
-            mView.openBrowser(mData.get(position).getLink());
+            String url = mData.get(position).getLink();
+            if(mView.isInAppBrowser()) mView.openInAppBrowser(url);
+            else mView.openBrowser(url);
             return true;
         } else {
             return false;

@@ -19,19 +19,33 @@
 <!--suppress AndroidElementNotAllowed -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <SwitchPreferenceCompat
-        android:defaultValue="true"
-        android:key="subscribe_news"
-        android:title="@string/settings_title_news_subscribe"
-        android:summaryOn="@string/settings_summary_news_subscribe"
-        android:summaryOff="@string/settings_summary_news_unsubscribe"
-        />
-    <SwitchPreferenceCompat
-        android:defaultValue="true"
-        android:key="subscribe_announcement"
-        android:title="@string/settings_title_announcmenet_subscribe"
-        android:summaryOn="@string/settings_summary_announcement_subscribe"
-        android:summaryOff="@string/settings_summary_announcement_unsubscribe"
-        />
+    <PreferenceCategory
+        android:title="@string/settings_group_notification">
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="subscribe_news"
+            android:summaryOff="@string/settings_summary_news_unsubscribe"
+            android:summaryOn="@string/settings_summary_news_subscribe"
+            android:title="@string/settings_title_news_subscribe"
+            />
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="subscribe_announcement"
+            android:summaryOff="@string/settings_summary_announcement_unsubscribe"
+            android:summaryOn="@string/settings_summary_announcement_subscribe"
+            android:title="@string/settings_title_announcmenet_subscribe"
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/settings_group_browser">
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="in_app_browser"
+            android:summaryOff="@string/settings_summary_app_browser_off"
+            android:summaryOn="@string/settings_summary_app_browser_on"
+            android:title="@string/settings_title_app_browser"
+            />
+    </PreferenceCategory>
 
 </PreferenceScreen>

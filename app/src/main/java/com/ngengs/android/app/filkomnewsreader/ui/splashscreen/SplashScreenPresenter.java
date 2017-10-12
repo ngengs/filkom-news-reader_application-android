@@ -47,4 +47,13 @@ public class SplashScreenPresenter implements SplashScreenContract.Presenter {
             mView.changePreferences(Preferences.PREF_KEY_FIRST_RUN, true);
         }
     }
+
+    @Override
+    public void runInDebug(boolean debug) {
+        if(debug){
+            mView.subscribeTopic(Preferences.PREF_KEY_NOTIFICATION_DEBUG);
+        } else {
+            mView.unsubscribeTopic(Preferences.PREF_KEY_NOTIFICATION_DEBUG);
+        }
+    }
 }

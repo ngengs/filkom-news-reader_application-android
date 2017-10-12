@@ -26,16 +26,12 @@ import com.ngengs.android.app.filkomnewsreader.R;
 
 public class SettingActivity extends AppCompatActivity {
 
-    private SettingFragment mFragment;
-    private SettingContract.Presenter mPresenter;
-    private FirebaseAnalytics mFirebaseAnalytics;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-        mFragment = new SettingFragment();
-        mPresenter = new SettingPresenter(mFragment);
+        SettingFragment mFragment = new SettingFragment();
+        SettingContract.Presenter mPresenter = new SettingPresenter(mFragment);
         mPresenter.start();
         getSupportFragmentManager().beginTransaction()
                                    .replace(R.id.frame_setting, mFragment)
@@ -44,7 +40,7 @@ public class SettingActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         if (savedInstanceState == null) {
             Bundle bundle = new Bundle();
             bundle.putString("screen", getClass().getSimpleName());
