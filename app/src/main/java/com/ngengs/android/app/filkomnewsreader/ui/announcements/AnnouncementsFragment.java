@@ -18,8 +18,12 @@
 package com.ngengs.android.app.filkomnewsreader.ui.announcements;
 
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.service.notification.StatusBarNotification;
 import android.support.annotation.NonNull;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.app.Fragment;
@@ -135,6 +139,24 @@ public class AnnouncementsFragment extends Fragment implements AnnouncementsCont
             //noinspection unchecked
             mPresenter.setAnnouncement((List<Announcement>) temp, tempPageNow, tempPageTotal);
         } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                NotificationManager mNotificationManager
+                        = (NotificationManager) getContext().getSystemService(
+                        Context.NOTIFICATION_SERVICE);
+                if (mNotificationManager != null) {
+                    StatusBarNotification[] notifications
+                            = mNotificationManager.getActiveNotifications();
+                    if (notifications != null) {
+                        for (StatusBarNotification item : notifications) {
+                            if (item.getTag() != null
+                                && item.getTag()
+                                       .equalsIgnoreCase(Types.NOTIFICATION_CHANNEL_ANNOUNCEMENT)) {
+                                mNotificationManager.cancel(item.getTag(), item.getId());
+                            }
+                        }
+                    }
+                }
+            }
             mPresenter.getAnnouncementFromServer(1);
         }
         return mView;
@@ -191,7 +213,8 @@ public class AnnouncementsFragment extends Fragment implements AnnouncementsCont
         switch (indicatorType) {
             case Types.TYPE_INDICATOR_EMPTY:
                 mImageIndicator.setImageDrawable(
-                        VectorDrawableCompat.create(getResources(), R.drawable.ic_menu_announcement, null));
+                        VectorDrawableCompat.create(getResources(), R.drawable.ic_menu_announcement,
+                                                    null));
                 mTextIndicator.setText(R.string.indicator_load_data);
                 break;
             case Types.TYPE_INDICATOR_ERROR:

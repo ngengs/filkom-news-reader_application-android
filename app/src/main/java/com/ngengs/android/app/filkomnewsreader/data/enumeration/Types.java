@@ -24,4 +24,8 @@ public final class Types {
     public static final int TYPE_INDICATOR_EMPTY = 20;
     public static final int TYPE_INDICATOR_ERROR = 21;
     public static final int TYPE_INDICATOR_NO_NETWORK = 22;
+
+    public static final String NOTIFICATION_CHANNEL_NEWS = "news_notification";
+    public static final String NOTIFICATION_CHANNEL_ANNOUNCEMENT = "announcement_notification";
+    public final static String NOTIFICATION_GROUP = "notification_group";
 }

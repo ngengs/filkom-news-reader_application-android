@@ -31,8 +31,10 @@
     <string name="settings_summary_app_browser_on">Link dari filkom akan di buka di dalam aplikasi</string>
     <string name="settings_summary_app_browser_off">Link dari filkom akan di buka di browser lain</string>
 
+    <string name="notification_title_generic">Pemberitahuan Baru</string>
     <string name="notification_title_news">Berita Baru</string>
     <string name="notification_title_announcement">Pengumuman Baru</string>
+    <string name="notification_message_generic">Terdapat pemberitahuan baru dari Filkom</string>
     <string name="notification_message_news" tools:ignore="PluralsCandidate">Terdapat %1$d berita baru dari Filkom</string>
     <string name="notification_message_announcement" tools:ignore="PluralsCandidate">Terdapat %1$d pengumuman baru dari Filkom</string>
     <string name="notification_message_more" tools:ignore="PluralsCandidate">+%1$d lainnya</string>
