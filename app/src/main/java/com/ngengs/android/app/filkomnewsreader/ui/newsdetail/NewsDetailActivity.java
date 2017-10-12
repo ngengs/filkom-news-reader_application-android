@@ -17,12 +17,13 @@
 
 package com.ngengs.android.app.filkomnewsreader.ui.newsdetail;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -38,7 +39,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.ngengs.android.app.filkomnewsreader.R;
+import com.ngengs.android.app.filkomnewsreader.data.enumeration.Preferences;
 import com.ngengs.android.app.filkomnewsreader.data.model.News;
+import com.ngengs.android.app.filkomnewsreader.ui.inappbrowser.InAppBrowserOpenHelper;
 import com.ngengs.android.app.filkomnewsreader.utils.CommonUtils;
 import com.ngengs.android.app.filkomnewsreader.utils.NetworkUtils;
 import com.ngengs.android.app.filkomnewsreader.utils.logger.AppLogger;
@@ -61,6 +64,8 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailC
     private FloatingActionButton mFabShare;
     private FirebaseAnalytics mFirebaseAnalytics;
 
+    private SharedPreferences mSharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,8 +79,9 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailC
         mProgress = findViewById(R.id.progress_news_detail);
         mRecyclerView = findViewById(R.id.recycler_news_detail);
         mFabShare = findViewById(R.id.fab_share);
-        mFabShare.setOnClickListener(view -> shareLink());
+        mFabShare.setOnClickListener(view -> mPresenter.shareLink());
         showShareButton(false);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         mAdapter = new NewsDetailAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
@@ -139,31 +145,10 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailC
                 onBackPressed();
                 break;
             case R.id.menu_open_link_news_detail:
-                openLink();
+                mPresenter.openBrowser();
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void shareLink() {
-        Timber.d("shareLink() called");
-        if (mPresenter != null && mPresenter.getNews() != null) {
-            logClickEvent("share");
-            CommonUtils.shareLink(this, mPresenter.getNews().getTitle(),
-                                  mPresenter.getNews().getLink());
-        } else {
-            Snackbar.make(mFabShare, "Tidak dapat membagikan berita", Snackbar.LENGTH_SHORT).show();
-        }
-    }
-
-    private void openLink() {
-        Timber.d("shareLink() called");
-        if (mPresenter != null && mPresenter.getNews() != null) {
-            logClickEvent("browser");
-            CommonUtils.openLinkInBrowser(this, mPresenter.getNews().getLink());
-        } else {
-            Snackbar.make(mFabShare, "Tidak dapat membuka berita", Snackbar.LENGTH_SHORT).show();
-        }
     }
 
     @Override
@@ -213,6 +198,33 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailC
         DateFormat dateFormat = android.text.format.DateFormat.getLongDateFormat(this);
         String stringDate = dateFormat.format(date);
         mDate.setText(stringDate);
+    }
+
+    @Override
+    public void shareLink(@NonNull String title, @NonNull String url) {
+        Timber.d("shareLink() called with: title = [" + title + "], url = [" + url + "]");
+        logClickEvent("share");
+        CommonUtils.shareLink(this, mPresenter.getNews().getTitle(),
+                              mPresenter.getNews().getLink());
+    }
+
+    @Override
+    public void openBrowser(@NonNull String url) {
+        Timber.d("openBrowser() called with: url = [" + url + "]");
+        logClickEvent("browser");
+        CommonUtils.openLinkInBrowser(this, mPresenter.getNews().getLink());
+    }
+
+    @Override
+    public void openInAppBrowser(@NonNull String url) {
+        Timber.d("openInAppBrowser() called with: url = [" + url + "]");
+        logClickEvent("in_app_browser");
+        InAppBrowserOpenHelper.open(this, url);
+    }
+
+    @Override
+    public boolean isInAppBrowser() {
+        return mSharedPreferences.getBoolean(Preferences.PREF_KEY_IN_APP_BROWSER, true);
     }
 
     @Override

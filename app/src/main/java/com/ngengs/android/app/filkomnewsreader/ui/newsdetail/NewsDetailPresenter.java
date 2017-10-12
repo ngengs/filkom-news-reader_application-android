@@ -77,6 +77,29 @@ public class NewsDetailPresenter
     }
 
     @Override
+    public void openBrowser() {
+        mLogger.d("openBrowser() called");
+        if (mData.getLink() != null && !mData.getLink().equalsIgnoreCase("")) {
+            String url = mData.getLink();
+            if (mView.isInAppBrowser()) {
+                mView.openInAppBrowser(url);
+            } else {
+                mView.openBrowser(url);
+            }
+        }
+    }
+
+    @Override
+    public void shareLink() {
+        mLogger.d("shareLink() called");
+        if (mData.getLink() != null && mData.getTitle() != null &&
+            !mData.getTitle().equalsIgnoreCase("") &&
+            !mData.getLink().equalsIgnoreCase("")) {
+            mView.shareLink(mData.getTitle(), mData.getLink());
+        }
+    }
+
+    @Override
     public void unbind() {
         mLogger.d("unbind() called");
         mSource.release();

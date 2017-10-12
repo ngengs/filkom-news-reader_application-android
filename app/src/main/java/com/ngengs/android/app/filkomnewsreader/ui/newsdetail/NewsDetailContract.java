@@ -32,6 +32,10 @@ interface NewsDetailContract {
         News getNews();
 
         void setNews(News news);
+
+        void openBrowser();
+
+        void shareLink();
     }
 
     interface View extends NetworkBaseView<Presenter> {
@@ -48,5 +52,13 @@ interface NewsDetailContract {
         void setNewsImage(@NonNull String imageUrl);
 
         void setNewsDate(@NonNull Date date);
+
+        void shareLink(@NonNull String title, @NonNull String url);
+
+        void openBrowser(@NonNull String url);
+
+        void openInAppBrowser(@NonNull String url);
+
+        boolean isInAppBrowser();
     }
 }

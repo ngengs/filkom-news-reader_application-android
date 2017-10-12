@@ -36,6 +36,10 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".ui.settings.SettingActivity"/>
+        <activity
+            android:name=".ui.inappbrowser.InAppBrowserActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
 
         <service
             android:name=".notifications.MessagingService"

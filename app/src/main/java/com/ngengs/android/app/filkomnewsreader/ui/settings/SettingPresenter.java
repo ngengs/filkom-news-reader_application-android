@@ -25,7 +25,7 @@ public class SettingPresenter implements SettingContract.Presenter {
 
     private final SettingContract.View mView;
 
-    public SettingPresenter(SettingContract.View mView) {
+    SettingPresenter(SettingContract.View mView) {
         if (mView != null) {
             this.mView = mView;
         } else {

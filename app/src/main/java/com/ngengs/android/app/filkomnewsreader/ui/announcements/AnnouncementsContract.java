@@ -58,10 +58,14 @@ interface AnnouncementsContract {
 
         void openBrowser(String url);
 
+        void openInAppBrowser(String url);
+
         void shareLink(String title, String url);
 
         boolean isSwipeRefreshLoading();
 
         void stopSwipeRefreshLoading();
+
+        boolean isInAppBrowser();
     }
 }

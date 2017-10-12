@@ -18,11 +18,13 @@
 package com.ngengs.android.app.filkomnewsreader.ui.announcements;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,8 +36,10 @@ import android.widget.TextView;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.ngengs.android.app.filkomnewsreader.R;
+import com.ngengs.android.app.filkomnewsreader.data.enumeration.Preferences;
 import com.ngengs.android.app.filkomnewsreader.data.enumeration.Types;
 import com.ngengs.android.app.filkomnewsreader.data.model.Announcement;
+import com.ngengs.android.app.filkomnewsreader.ui.inappbrowser.InAppBrowserOpenHelper;
 import com.ngengs.android.app.filkomnewsreader.utils.CommonUtils;
 import com.ngengs.android.app.filkomnewsreader.utils.NetworkUtils;
 import com.ngengs.android.app.filkomnewsreader.utils.logger.AppLogger;
@@ -65,6 +69,8 @@ public class AnnouncementsFragment extends Fragment implements AnnouncementsCont
     private LinearLayoutManager mLayoutManager;
     private FirebaseAnalytics mFirebaseAnalytics;
 
+    private SharedPreferences mSharedPreferences;
+
 
     public AnnouncementsFragment() {
         // Required empty public constructor
@@ -93,6 +99,8 @@ public class AnnouncementsFragment extends Fragment implements AnnouncementsCont
         mTextIndicator = mView.findViewById(R.id.text_frame_announcement_indicator);
         mProgressIndicator = mView.findViewById(R.id.progress_frame_announcement_indicator);
         mSwipeRefresh = mView.findViewById(R.id.swipe_refresh_announcement);
+
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         mPresenter = new AnnouncementsPresenter(this, new AppLogger());
         mAdapter = new AnnouncementsAdapter(getContext());
@@ -218,6 +226,13 @@ public class AnnouncementsFragment extends Fragment implements AnnouncementsCont
     }
 
     @Override
+    public void openInAppBrowser(String url) {
+        Timber.d("openBrowser() called with: url = [" + url + "]");
+        logClickEvent("open_in_app_browser");
+        InAppBrowserOpenHelper.open(getContext(), url);
+    }
+
+    @Override
     public void shareLink(String title, String url) {
         Timber.d("shareLink() called with: title = [" + title + "], url = [" + url + "]");
         logClickEvent("share");
@@ -232,6 +247,11 @@ public class AnnouncementsFragment extends Fragment implements AnnouncementsCont
     @Override
     public void stopSwipeRefreshLoading() {
         mSwipeRefresh.setRefreshing(false);
+    }
+
+    @Override
+    public boolean isInAppBrowser() {
+        return mSharedPreferences.getBoolean(Preferences.PREF_KEY_IN_APP_BROWSER, true);
     }
 
     @Override
