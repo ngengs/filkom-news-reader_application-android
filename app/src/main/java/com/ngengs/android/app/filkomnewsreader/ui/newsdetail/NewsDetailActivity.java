@@ -54,6 +54,8 @@ import timber.log.Timber;
 
 public class NewsDetailActivity extends AppCompatActivity implements NewsDetailContract.View {
 
+    public final static String INTENT_ARGS_DATA = "DATA";
+
     private ImageView mImage;
     private TextView mTitle;
     private TextView mDate;
@@ -97,7 +99,7 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailC
         }
         News data = null;
         if (getIntent() != null) {
-            data = getIntent().getParcelableExtra("DATA");
+            data = getIntent().getParcelableExtra(INTENT_ARGS_DATA);
         }
         if (savedInstanceState != null) {
             data = savedInstanceState.getParcelable("DATA");

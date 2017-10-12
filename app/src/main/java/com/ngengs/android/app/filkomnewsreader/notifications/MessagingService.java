@@ -107,7 +107,7 @@ public class MessagingService extends FirebaseMessagingService {
                     News mNews = new News(notificationNewsId.get(i));
                     mNews.setTitle(notificationData.get(i));
                     intent = new Intent(this, NewsDetailActivity.class);
-                    intent.putExtra("DATA", mNews);
+                    intent.putExtra(NewsDetailActivity.INTENT_ARGS_DATA, mNews);
                     break;
                 case Types.TYPE_ANNOUNCEMNT:
                     intent = new Intent(this, MainActivity.class);
