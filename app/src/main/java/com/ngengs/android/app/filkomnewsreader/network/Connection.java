@@ -36,7 +36,7 @@ import timber.log.Timber;
 
 @SuppressWarnings("WeakerAccess")
 public class Connection {
-    public static final String BASE_URL = "http://filkom-news-reader.ngengs.com/api/";
+    public static final String BASE_URL = "https://filkom-news-reader.ngengs.com/api/";
 
     private static final long CACHE_SIZE = 10 * 1024 * 1024;    // 10 MB
     private static final int CONNECT_TIMEOUT = 15;
