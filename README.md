@@ -1,4 +1,4 @@
-# Filkom News Reader Android
+# Filkom Brawijaya News Reader Android
 [![Build Status](https://travis-ci.org/ngengs/filkom-news-reader_application-android.svg?branch=development)](https://travis-ci.org/ngengs/filkom-news-reader_application-android)
 [![GitHub release](https://img.shields.io/github/release/ngengs/filkom-news-reader_application-android.svg)](https://github.com/ngengs/filkom-news-reader_application-android/releases/latest)
 
