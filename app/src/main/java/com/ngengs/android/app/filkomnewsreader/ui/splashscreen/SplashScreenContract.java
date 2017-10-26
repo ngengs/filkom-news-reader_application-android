@@ -20,7 +20,7 @@ package com.ngengs.android.app.filkomnewsreader.ui.splashscreen;
 import com.ngengs.android.app.filkomnewsreader.ui.BasePresenter;
 import com.ngengs.android.app.filkomnewsreader.ui.BaseView;
 
-class SplashScreenContract {
+interface SplashScreenContract {
     interface Presenter extends BasePresenter {
         void runFirstStart(boolean firstStart);
         void runInDebug(boolean debug);
