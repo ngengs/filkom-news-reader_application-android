@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FilkomNewsReader.iml" filepath="$PROJECT_DIR$/FilkomNewsReader.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/filkom-news-reader_application-android.iml" filepath="$PROJECT_DIR$/filkom-news-reader_application-android.iml" />
     </modules>
   </component>
 </project>
