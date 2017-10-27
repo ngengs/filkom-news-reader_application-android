@@ -44,7 +44,7 @@ public class SplashScreenPresenter implements SplashScreenContract.Presenter {
             mView.subscribeTopic(Preferences.PREF_KEY_NOTIFICATION_ANNOUNCEMENT);
             mView.changePreferences(Preferences.PREF_KEY_NOTIFICATION_NEWS, true);
             mView.changePreferences(Preferences.PREF_KEY_NOTIFICATION_ANNOUNCEMENT, true);
-            mView.changePreferences(Preferences.PREF_KEY_FIRST_RUN, true);
+            mView.changePreferences(Preferences.PREF_KEY_FIRST_RUN, false);
         }
     }
 
