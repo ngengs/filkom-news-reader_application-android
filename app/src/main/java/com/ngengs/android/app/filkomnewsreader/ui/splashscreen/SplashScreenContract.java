@@ -23,6 +23,7 @@ import com.ngengs.android.app.filkomnewsreader.ui.BaseView;
 interface SplashScreenContract {
     interface Presenter extends BasePresenter {
         void runFirstStart(boolean firstStart);
+
         void runInDebug(boolean debug);
     }
 

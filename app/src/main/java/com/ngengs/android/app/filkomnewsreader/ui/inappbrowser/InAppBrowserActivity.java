@@ -37,8 +37,8 @@ import timber.log.Timber;
 
 public class InAppBrowserActivity extends AppCompatActivity implements InAppBrowserContract.View {
 
-    private InAppBrowserContract.Presenter mPresenter;
     public static final String TAG_URL = "URL";
+    private InAppBrowserContract.Presenter mPresenter;
     private TextView mTitle;
     private TextView mSubtitle;
     private WebView mWebview;
@@ -86,7 +86,7 @@ public class InAppBrowserActivity extends AppCompatActivity implements InAppBrow
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 super.onBackPressed();
                 break;

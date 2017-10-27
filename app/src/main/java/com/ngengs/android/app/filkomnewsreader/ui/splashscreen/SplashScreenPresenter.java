@@ -50,7 +50,7 @@ public class SplashScreenPresenter implements SplashScreenContract.Presenter {
 
     @Override
     public void runInDebug(boolean debug) {
-        if(debug){
+        if (debug) {
             mView.subscribeTopic(Preferences.PREF_KEY_NOTIFICATION_DEBUG);
         } else {
             mView.unsubscribeTopic(Preferences.PREF_KEY_NOTIFICATION_DEBUG);

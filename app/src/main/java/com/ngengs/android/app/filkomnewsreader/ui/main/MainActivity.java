@@ -68,7 +68,9 @@ public class MainActivity extends AppCompatActivity
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-        if (mFragmentManager == null) mFragmentManager = getSupportFragmentManager();
+        if (mFragmentManager == null) {
+            mFragmentManager = getSupportFragmentManager();
+        }
 
         mPresenter = new MainPresenter(this);
         int fragmentType = mPresenter.getFragmentType();

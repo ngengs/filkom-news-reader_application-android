@@ -123,8 +123,11 @@ public class AnnouncementsPresenter
         mLogger.d("onClick() called with: position = [" + position + "]");
         if (position < mData.size()) {
             String url = mData.get(position).getLink();
-            if (mView.isInAppBrowser()) mView.openInAppBrowser(url);
-            else mView.openBrowser(url);
+            if (mView.isInAppBrowser()) {
+                mView.openInAppBrowser(url);
+            } else {
+                mView.openBrowser(url);
+            }
             return true;
         } else {
             return false;
@@ -169,7 +172,9 @@ public class AnnouncementsPresenter
             mPageNow = pageNow;
             if (data.size() > 0) {
                 mLogger.d("onDataLoad: %s", "announcement not null");
-                if (mPageNow == 1) mView.clearAnnouncement();
+                if (mPageNow == 1) {
+                    mView.clearAnnouncement();
+                }
                 mData.addAll(data);
                 mView.addAnnouncement(data);
             }
@@ -185,8 +190,12 @@ public class AnnouncementsPresenter
     @Override
     public void onDataFinished() {
         mLogger.d("onDataFinished() called");
-        if (mPageNow == 1) mView.showProgress(false);
-        if (mView.isSwipeRefreshLoading()) mView.stopSwipeRefreshLoading();
+        if (mPageNow == 1) {
+            mView.showProgress(false);
+        }
+        if (mView.isSwipeRefreshLoading()) {
+            mView.stopSwipeRefreshLoading();
+        }
         unbind();
     }
 }

@@ -150,7 +150,9 @@ public class NewsPresenter
             mPageTotal = pageTotal;
             mPageNow = pageNow;
             if (data.size() > 0) {
-                if (mPageNow == 1) mView.clearNews();
+                if (mPageNow == 1) {
+                    mView.clearNews();
+                }
                 mData.addAll(data);
                 mView.addNews(data);
             }
@@ -167,8 +169,12 @@ public class NewsPresenter
     @Override
     public void onDataFinished() {
         mLogger.d("onDataFinished: %s", "");
-        if (mPageNow == 1) mView.showProgress(false);
-        if (mView.isSwipeRefreshLoading()) mView.stopSwipeRefreshLoading();
+        if (mPageNow == 1) {
+            mView.showProgress(false);
+        }
+        if (mView.isSwipeRefreshLoading()) {
+            mView.stopSwipeRefreshLoading();
+        }
         unbind();
     }
 }
