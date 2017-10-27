@@ -123,7 +123,7 @@ public class AnnouncementsPresenter
         mLogger.d("onClick() called with: position = [" + position + "]");
         if (position < mData.size()) {
             String url = mData.get(position).getLink();
-            if(mView.isInAppBrowser()) mView.openInAppBrowser(url);
+            if (mView.isInAppBrowser()) mView.openInAppBrowser(url);
             else mView.openBrowser(url);
             return true;
         } else {

@@ -19,13 +19,7 @@ package com.ngengs.android.app.filkomnewsreader.utils;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 
 import com.ngengs.android.app.filkomnewsreader.R;
 
