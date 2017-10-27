@@ -54,7 +54,7 @@ import timber.log.Timber;
 
 public class NewsDetailActivity extends AppCompatActivity implements NewsDetailContract.View {
 
-    public final static String INTENT_ARGS_DATA = "DATA";
+    public static final String INTENT_ARGS_DATA = "DATA";
 
     private ImageView mImage;
     private TextView mTitle;

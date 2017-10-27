@@ -27,5 +27,5 @@ public final class Types {
 
     public static final String NOTIFICATION_CHANNEL_NEWS = "news_notification";
     public static final String NOTIFICATION_CHANNEL_ANNOUNCEMENT = "announcement_notification";
-    public final static String NOTIFICATION_GROUP = "notification_group";
+    public static final String NOTIFICATION_GROUP = "notification_group";
 }
