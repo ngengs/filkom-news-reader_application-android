@@ -15,8 +15,8 @@ android:
   - extra-android-m2repository
   - addon-google_apis-google-19
 before_install:
-- echo $config_key | gpg --passphrase-fd 0 configuration.tar.gpg
-- tar xvf configuration.tar
+- 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then echo $config_key | gpg --passphrase-fd 0 configuration.tar.gpg; fi'
+- 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then echo tar xvf configuration.tar; fi'
 - chmod +x gradlew
 script:
 - "./gradlew clean lint test assembleDebug"
