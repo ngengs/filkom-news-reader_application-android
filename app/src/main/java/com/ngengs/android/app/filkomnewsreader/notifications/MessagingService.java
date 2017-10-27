@@ -84,7 +84,7 @@ public class MessagingService extends FirebaseMessagingService {
                 notificationIcon = R.drawable.ic_notification_news;
                 notificationPriority = NotificationCompat.PRIORITY_DEFAULT;
                 break;
-            case Types.TYPE_ANNOUNCEMNT:
+            case Types.TYPE_ANNOUNCEMENT:
                 channelId = Types.NOTIFICATION_CHANNEL_ANNOUNCEMENT;
                 notificationTitle = getString(R.string.notification_title_announcement);
                 notificationIcon = R.drawable.ic_notification_announcement;
@@ -109,7 +109,7 @@ public class MessagingService extends FirebaseMessagingService {
                     intent = new Intent(this, NewsDetailActivity.class);
                     intent.putExtra(NewsDetailActivity.INTENT_ARGS_DATA, mNews);
                     break;
-                case Types.TYPE_ANNOUNCEMNT:
+                case Types.TYPE_ANNOUNCEMENT:
                     intent = new Intent(this, MainActivity.class);
                     intent.putExtra(MainActivity.INTENT_ARGS_TYPE, type);
                     break;
@@ -184,7 +184,7 @@ public class MessagingService extends FirebaseMessagingService {
                 notificationMessage = getString(R.string.notification_message_news, total);
                 notificationPriority = NotificationCompat.PRIORITY_DEFAULT;
                 break;
-            case Types.TYPE_ANNOUNCEMNT:
+            case Types.TYPE_ANNOUNCEMENT:
                 channelId = Types.NOTIFICATION_CHANNEL_ANNOUNCEMENT;
                 notificationTitle = getString(R.string.notification_title_announcement);
                 notificationIcon = R.drawable.ic_notification_announcement;

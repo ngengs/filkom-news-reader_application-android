@@ -46,7 +46,7 @@ public class MainPresenter implements MainContract.Presenter {
             case Types.TYPE_NEWS:
                 mView.changeFragmentNews();
                 break;
-            case Types.TYPE_ANNOUNCEMNT:
+            case Types.TYPE_ANNOUNCEMENT:
                 mView.changeFragmentAnnouncement();
                 break;
             default:
@@ -66,8 +66,8 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public boolean changeFragmentAnnouncement() {
-        if (mFragmentType != Types.TYPE_ANNOUNCEMNT) {
-            changeFragment(Types.TYPE_ANNOUNCEMNT);
+        if (mFragmentType != Types.TYPE_ANNOUNCEMENT) {
+            changeFragment(Types.TYPE_ANNOUNCEMENT);
             return true;
         } else {
             return false;

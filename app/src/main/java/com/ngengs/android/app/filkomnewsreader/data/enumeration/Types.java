@@ -19,7 +19,7 @@ package com.ngengs.android.app.filkomnewsreader.data.enumeration;
 
 public final class Types {
     public static final int TYPE_NEWS = 10;
-    public static final int TYPE_ANNOUNCEMNT = 11;
+    public static final int TYPE_ANNOUNCEMENT = 11;
 
     public static final int TYPE_INDICATOR_EMPTY = 20;
     public static final int TYPE_INDICATOR_ERROR = 21;
