@@ -26,9 +26,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.ngengs.android.app.filkomnewsreader.R;
 import com.ngengs.android.app.filkomnewsreader.data.model.News;
+import com.ngengs.android.app.filkomnewsreader.utils.glideapp.defaultimage.GlideApp;
 import com.ngengs.android.app.filkomnewsreader.utils.listener.OnClickListener;
 
 import java.util.ArrayList;
@@ -59,7 +59,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         holder.mTitle.setText(news.getTitle());
         holder.mDescription.setText(news.getShortDescription());
 
-        Glide.with(mContext).load(news.getImage()).thumbnail(0.05f).into(holder.mImage);
+        GlideApp.with(mContext).load(news.getImage()).thumbnail(0.05f).into(holder.mImage);
     }
 
     @Override

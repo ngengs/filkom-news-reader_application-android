@@ -29,9 +29,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.ngengs.android.app.filkomnewsreader.R;
 import com.ngengs.android.app.filkomnewsreader.data.model.NewsContent;
+import com.ngengs.android.app.filkomnewsreader.utils.glideapp.defaultimage.GlideApp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,10 +78,10 @@ public class NewsDetailAdapter extends RecyclerView.Adapter<NewsDetailAdapter.Vi
                 break;
             case 3:
                 holder.mImage.setVisibility(View.VISIBLE);
-                Glide.with(mContext)
-                     .load(content.getContent())
-                     .thumbnail(0.05f)
-                     .into(holder.mImage);
+                GlideApp.with(mContext)
+                        .load(content.getContent())
+                        .thumbnail(0.05f)
+                        .into(holder.mImage);
                 break;
             case 1:
             default:

@@ -53,11 +53,7 @@ public class Connection {
      */
     @NonNull
     public static OkHttpClient provideOkHttp(File cacheDirectory) {
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(message -> {
-            if (BuildConfig.DEBUG) {
-                Timber.tag("OkHttp").d(message);
-            }
-        });
+        HttpLoggingInterceptor loggingInterceptor = Connection.provideNetworkLogging();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         Cache cache = new Cache(cacheDirectory, CACHE_SIZE);
@@ -69,6 +65,37 @@ public class Connection {
                 .addInterceptor(loggingInterceptor)
                 .cache(cache)
                 .build();
+    }
+
+    /**
+     * Build okHttp client without specific cache directory and timeout.
+     *
+     * @return okHttp client
+     */
+    @NonNull
+    public static OkHttpClient provideOkHttp() {
+        HttpLoggingInterceptor loggingInterceptor = Connection.provideNetworkLogging();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+
+        return new OkHttpClient.Builder()
+                .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
+                .addInterceptor(loggingInterceptor)
+                .build();
+    }
+
+    /**
+     * Build network logging.
+     * This will print network transaction log
+     *
+     * @return HttpLoggingInterceptor
+     */
+    @NonNull
+    public static HttpLoggingInterceptor provideNetworkLogging() {
+        return new HttpLoggingInterceptor(message -> {
+            if (BuildConfig.DEBUG) {
+                Timber.tag("OkHttp").d(message);
+            }
+        });
     }
 
 

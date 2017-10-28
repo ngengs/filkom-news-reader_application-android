@@ -36,7 +36,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.ngengs.android.app.filkomnewsreader.R;
 import com.ngengs.android.app.filkomnewsreader.data.enumeration.Preferences;
@@ -44,6 +43,7 @@ import com.ngengs.android.app.filkomnewsreader.data.model.News;
 import com.ngengs.android.app.filkomnewsreader.ui.inappbrowser.InAppBrowserOpenHelper;
 import com.ngengs.android.app.filkomnewsreader.utils.CommonUtils;
 import com.ngengs.android.app.filkomnewsreader.utils.NetworkUtils;
+import com.ngengs.android.app.filkomnewsreader.utils.glideapp.defaultimage.GlideApp;
 import com.ngengs.android.app.filkomnewsreader.utils.logger.AppLogger;
 
 import java.io.File;
@@ -192,7 +192,7 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailC
 
     @Override
     public void setNewsImage(@NonNull String imageUrl) {
-        Glide.with(this).load(imageUrl).thumbnail(0.05f).into(mImage);
+        GlideApp.with(this).load(imageUrl).thumbnail(0.05f).into(mImage);
     }
 
     @Override
