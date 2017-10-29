@@ -15,7 +15,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.ngengs.android.app.filkomnewsreader.utils.glideapp.defaultimage;
+package com.ngengs.android.app.filkomnewsreader.utils.glideapp;
 
 import android.content.Context;
 

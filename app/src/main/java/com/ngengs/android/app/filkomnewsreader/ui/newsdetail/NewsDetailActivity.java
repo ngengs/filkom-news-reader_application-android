@@ -43,7 +43,7 @@ import com.ngengs.android.app.filkomnewsreader.data.model.News;
 import com.ngengs.android.app.filkomnewsreader.ui.inappbrowser.InAppBrowserOpenHelper;
 import com.ngengs.android.app.filkomnewsreader.utils.CommonUtils;
 import com.ngengs.android.app.filkomnewsreader.utils.NetworkUtils;
-import com.ngengs.android.app.filkomnewsreader.utils.glideapp.defaultimage.GlideApp;
+import com.ngengs.android.app.filkomnewsreader.utils.glideapp.GlideApp;
 import com.ngengs.android.app.filkomnewsreader.utils.logger.AppLogger;
 
 import java.io.File;

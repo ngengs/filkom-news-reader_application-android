@@ -31,7 +31,7 @@ import android.widget.TextView;
 
 import com.ngengs.android.app.filkomnewsreader.R;
 import com.ngengs.android.app.filkomnewsreader.data.model.NewsContent;
-import com.ngengs.android.app.filkomnewsreader.utils.glideapp.defaultimage.GlideApp;
+import com.ngengs.android.app.filkomnewsreader.utils.glideapp.GlideApp;
 
 import java.util.ArrayList;
 import java.util.List;
