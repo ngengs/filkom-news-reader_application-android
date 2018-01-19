@@ -31,3 +31,5 @@ deploy:
   on:
     repo: ngengs/filkom-news-reader_application-android
     branch: master
+after_deploy:
+- curl -i -H "Authorization:key=$fcm_key" -H "Content-type:application/json" -X POST --data '{"to":"/topics/subscribe_update_version","data":{"type":20}}' https://fcm.googleapis.com/fcm/send
