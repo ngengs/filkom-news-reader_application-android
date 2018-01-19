@@ -15,6 +15,7 @@ android:
   - extra-android-m2repository
   - addon-google_apis-google-19
 before_install:
+- yes | sdkmanager "platforms;android-27"
 - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then echo $config_key | gpg --passphrase-fd 0 configuration.tar.gpg; fi'
 - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then echo tar xvf configuration.tar; fi'
 - chmod +x gradlew
