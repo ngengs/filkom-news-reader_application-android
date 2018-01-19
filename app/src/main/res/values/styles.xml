@@ -26,4 +26,7 @@
         <item name="android:textColor">@android:color/transparent</item>
     </style>
 
+    <style name="AppTheme.ImagePreview" parent="AppTheme.NoActionBar">
+    </style>
+
 </resources>

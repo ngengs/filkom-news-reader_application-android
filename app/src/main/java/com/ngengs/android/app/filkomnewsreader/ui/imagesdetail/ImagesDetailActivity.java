@@ -111,7 +111,8 @@ public class ImagesDetailActivity extends AppCompatActivity implements ImagesDet
         String imagePath = CommonUtils.saveImage(this, mImageBitmap, imageName);
         Timber.d("saveImage: %s", imagePath);
         if (!TextUtils.isEmpty(imagePath)) {
-            Snackbar.make(mImageSaveButton, "Berhasil menyimpan gambar", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(mImageSaveButton, "Berhasil menyimpan gambar", Snackbar.LENGTH_SHORT)
+                    .show();
             CommonUtils.notifyGallery(this, imagePath);
         } else {
             Snackbar.make(mImageSaveButton, "Gagal menyimpan gambar", Snackbar.LENGTH_SHORT).show();
@@ -134,7 +135,7 @@ public class ImagesDetailActivity extends AppCompatActivity implements ImagesDet
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == REQUEST_CODE_PERMISSION_STORAGE){
+        if (requestCode == REQUEST_CODE_PERMISSION_STORAGE) {
             Timber.d("onActivityResult: %s", "Result from permission storage");
             mPresenter.saveImage();
         }

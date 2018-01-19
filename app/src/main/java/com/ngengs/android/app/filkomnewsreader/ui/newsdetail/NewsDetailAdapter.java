@@ -18,6 +18,7 @@
 package com.ngengs.android.app.filkomnewsreader.ui.newsdetail;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -31,6 +32,7 @@ import android.widget.TextView;
 
 import com.ngengs.android.app.filkomnewsreader.R;
 import com.ngengs.android.app.filkomnewsreader.data.model.NewsContent;
+import com.ngengs.android.app.filkomnewsreader.ui.imagesdetail.ImagesDetailActivity;
 import com.ngengs.android.app.filkomnewsreader.utils.glideapp.GlideApp;
 
 import java.util.ArrayList;
@@ -43,7 +45,7 @@ public class NewsDetailAdapter extends RecyclerView.Adapter<NewsDetailAdapter.Vi
     private final List<NewsContent> mData;
     private final Context mContext;
 
-    public NewsDetailAdapter(Context mContext) {
+    NewsDetailAdapter(Context mContext) {
         this.mContext = mContext;
         this.mData = new ArrayList<>();
     }
@@ -78,9 +80,15 @@ public class NewsDetailAdapter extends RecyclerView.Adapter<NewsDetailAdapter.Vi
                 break;
             case 3:
                 holder.mImage.setVisibility(View.VISIBLE);
+                holder.mImage.setOnClickListener(v -> {
+                    Intent intent = new Intent(mContext, ImagesDetailActivity.class);
+                    intent.putExtra(ImagesDetailActivity.INTENT_ARGS_DATA, content.getContent());
+                    mContext.startActivity(intent);
+                });
                 GlideApp.with(mContext)
                         .load(content.getContent())
                         .thumbnail(0.05f)
+                        .centerInside()
                         .into(holder.mImage);
                 break;
             case 1:
@@ -110,7 +118,7 @@ public class NewsDetailAdapter extends RecyclerView.Adapter<NewsDetailAdapter.Vi
         notifyItemRangeInserted(temp, data.size());
     }
 
-    public void clear() {
+    void clear() {
         if (mData.size() > 0) {
             int temp = mData.size();
             mData.clear();

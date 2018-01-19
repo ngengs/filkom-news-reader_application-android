@@ -20,6 +20,7 @@ package com.ngengs.android.app.filkomnewsreader.data.enumeration;
 public final class Types {
     public static final int TYPE_NEWS = 10;
     public static final int TYPE_ANNOUNCEMENT = 11;
+    public static final int TYPE_UPDATE_VERSION = 20;
 
     public static final int TYPE_INDICATOR_EMPTY = 20;
     public static final int TYPE_INDICATOR_ERROR = 21;
@@ -27,5 +28,6 @@ public final class Types {
 
     public static final String NOTIFICATION_CHANNEL_NEWS = "news_notification";
     public static final String NOTIFICATION_CHANNEL_ANNOUNCEMENT = "announcement_notification";
+    public static final String NOTIFICATION_CHANNEL_UPDATE_VERSION = "update_version_notification";
     public static final String NOTIFICATION_GROUP = "notification_group";
 }

@@ -32,6 +32,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.ngengs.android.app.filkomnewsreader.R;
 import com.ngengs.android.app.filkomnewsreader.data.enumeration.Types;
 import com.ngengs.android.app.filkomnewsreader.data.model.News;
+import com.ngengs.android.app.filkomnewsreader.network.Connection;
 import com.ngengs.android.app.filkomnewsreader.ui.main.MainActivity;
 import com.ngengs.android.app.filkomnewsreader.ui.newsdetail.NewsDetailActivity;
 
@@ -61,16 +62,6 @@ public class MessagingService extends FirebaseMessagingService {
     private void buildStackNotification(Map<String, String> data) {
         Timber.d("buildStackNotification() called with: data = [" + data + "]");
         int type = Integer.parseInt(data.get("type"));
-        List<String> notificationData = new ArrayList<>();
-        List<String> notificationNewsId = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            if (data.containsKey("title_" + i)) {
-                notificationData.add(data.get("title_" + i));
-            }
-            if (data.containsKey("id_" + i)) {
-                notificationNewsId.add(data.get("id_" + i));
-            }
-        }
         String channelId;
         String notificationTitle;
         String notificationMessage = getString(R.string.notification_message_generic);
@@ -90,9 +81,22 @@ public class MessagingService extends FirebaseMessagingService {
                 notificationIcon = R.drawable.ic_notification_announcement;
                 notificationPriority = NotificationCompat.PRIORITY_HIGH;
                 break;
-            default:
-                Timber.e("buildNotification: %s", "Notification type not handle");
+            case Types.TYPE_UPDATE_VERSION:
+                buildUpdateVersionNotification();
                 return;
+            default:
+                Timber.w("buildNotification: %s", "Notification type not handle");
+                return;
+        }
+        List<String> notificationData = new ArrayList<>();
+        List<String> notificationNewsId = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            if (data.containsKey("title_" + i)) {
+                notificationData.add(data.get("title_" + i));
+            }
+            if (data.containsKey("id_" + i)) {
+                notificationNewsId.add(data.get("id_" + i));
+            }
         }
 
         NotificationCompat.InboxStyle mStyle = new NotificationCompat.InboxStyle();
@@ -114,7 +118,7 @@ public class MessagingService extends FirebaseMessagingService {
                     intent.putExtra(MainActivity.INTENT_ARGS_TYPE, type);
                     break;
                 default:
-                    Timber.e("buildStackNotification: %s",
+                    Timber.w("buildStackNotification: %s",
                              "Notification type not handle to create intent");
                     return;
             }
@@ -163,12 +167,6 @@ public class MessagingService extends FirebaseMessagingService {
         Timber.d("buildOldNotification() called with: data = [" + data + "]");
         int type = Integer.parseInt(data.get("type"));
         int total = Integer.parseInt(data.get("total"));
-        List<String> notificationData = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            if (data.containsKey("title_" + i)) {
-                notificationData.add(data.get("title_" + i));
-            }
-        }
         String channelId;
         String notificationTitle;
         String notificationMore;
@@ -191,9 +189,18 @@ public class MessagingService extends FirebaseMessagingService {
                 notificationMessage = getString(R.string.notification_message_announcement, total);
                 notificationPriority = NotificationCompat.PRIORITY_HIGH;
                 break;
-            default:
-                Timber.e("buildNotification: %s", "Notification type not handle");
+            case Types.TYPE_UPDATE_VERSION:
+                buildUpdateVersionNotification();
                 return;
+            default:
+                Timber.w("buildNotification: %s", "Notification type not handle");
+                return;
+        }
+        List<String> notificationData = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            if (data.containsKey("title_" + i)) {
+                notificationData.add(data.get("title_" + i));
+            }
         }
 
         if (total > notificationData.size()) {
@@ -243,5 +250,29 @@ public class MessagingService extends FirebaseMessagingService {
 
         return mBuilder;
 
+    }
+
+    private void buildUpdateVersionNotification() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(Connection.DOWNLOAD_URL));
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
+                                                                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(this);
+
+        Notification mNotification = buildNotification(Types.NOTIFICATION_CHANNEL_UPDATE_VERSION,
+                                                       pendingIntent, getString(
+                        R.string.notification_title_update_version))
+                .setContentText(getString(R.string.notification_message_update_version))
+                .setSmallIcon(R.drawable.ic_notification_update_application)
+                .setCategory(NotificationCompat.CATEGORY_RECOMMENDATION)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setBadgeIconType(NotificationCompat.BADGE_ICON_SMALL)
+                .setSound(soundUri)
+                .build();
+        mNotificationManager.notify(Types.NOTIFICATION_CHANNEL_UPDATE_VERSION,
+                                    Types.TYPE_UPDATE_VERSION, mNotification);
     }
 }

@@ -17,6 +17,7 @@
 
 package com.ngengs.android.app.filkomnewsreader.ui.newsdetail;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -40,6 +41,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.ngengs.android.app.filkomnewsreader.R;
 import com.ngengs.android.app.filkomnewsreader.data.enumeration.Preferences;
 import com.ngengs.android.app.filkomnewsreader.data.model.News;
+import com.ngengs.android.app.filkomnewsreader.ui.imagesdetail.ImagesDetailActivity;
 import com.ngengs.android.app.filkomnewsreader.ui.inappbrowser.InAppBrowserOpenHelper;
 import com.ngengs.android.app.filkomnewsreader.utils.CommonUtils;
 import com.ngengs.android.app.filkomnewsreader.utils.NetworkUtils;
@@ -107,6 +109,11 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailC
             bundle.putString("screen", getClass().getSimpleName());
             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, bundle);
         }
+        mImage.setOnClickListener(v -> {
+            if (mPresenter.getNews() != null && mPresenter.getNews().getImage() != null) {
+                clickImage(mPresenter.getNews().getImage());
+            }
+        });
 
         setSupportActionBar(mToolbar);
         if (data != null) {
@@ -245,5 +252,11 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailC
         Bundle bundle = new Bundle();
         bundle.putString("type", type);
         mFirebaseAnalytics.logEvent("click", bundle);
+    }
+
+    private void clickImage(String imageUrl) {
+        Intent intent = new Intent(this, ImagesDetailActivity.class);
+        intent.putExtra(ImagesDetailActivity.INTENT_ARGS_DATA, imageUrl);
+        startActivity(intent);
     }
 }

@@ -17,7 +17,6 @@
 
 package com.ngengs.android.app.filkomnewsreader.ui.imagesdetail;
 
-import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 
 import com.ngengs.android.app.filkomnewsreader.ui.BasePresenter;

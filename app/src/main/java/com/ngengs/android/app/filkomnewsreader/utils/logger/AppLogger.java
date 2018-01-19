@@ -17,6 +17,8 @@
 
 package com.ngengs.android.app.filkomnewsreader.utils.logger;
 
+import android.annotation.SuppressLint;
+
 import timber.log.Timber;
 
 public class AppLogger implements Logger {
@@ -25,6 +27,7 @@ public class AppLogger implements Logger {
         Timber.d(message, objects);
     }
 
+    @SuppressLint("TimberExceptionLogging")
     @Override
     public void d(Throwable throwable, String message, Object... objects) {
         Timber.d(throwable, message, objects);
@@ -35,6 +38,7 @@ public class AppLogger implements Logger {
         Timber.i(message, objects);
     }
 
+    @SuppressLint("TimberExceptionLogging")
     @Override
     public void i(Throwable throwable, String message, Object... objects) {
         Timber.i(throwable, message, objects);
@@ -45,6 +49,7 @@ public class AppLogger implements Logger {
         Timber.w(message, objects);
     }
 
+    @SuppressLint("TimberExceptionLogging")
     @Override
     public void w(Throwable throwable, String message, Object... objects) {
         Timber.w(throwable, message, objects);
@@ -55,6 +60,7 @@ public class AppLogger implements Logger {
         Timber.e(message, objects);
     }
 
+    @SuppressLint("TimberExceptionLogging")
     @Override
     public void e(Throwable throwable, String message, Object... objects) {
         Timber.e(throwable, message, objects);

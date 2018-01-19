@@ -4,6 +4,7 @@
           package="com.ngengs.android.app.filkomnewsreader">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".App"
@@ -48,6 +49,11 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
+
+        <activity
+            android:name=".ui.imagesdetail.ImagesDetailActivity"
+            android:theme="@style/AppTheme.ImagePreview">
+        </activity>
     </application>
 
 </manifest>

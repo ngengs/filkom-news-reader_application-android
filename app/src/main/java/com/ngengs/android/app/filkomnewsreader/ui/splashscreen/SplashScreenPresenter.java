@@ -40,8 +40,10 @@ public class SplashScreenPresenter implements SplashScreenContract.Presenter {
     @Override
     public void runFirstStart(boolean firstStart) {
         if (firstStart) {
+            mView.subscribeTopic(Preferences.PREF_KEY_NOTIFICATION_UPDATE);
             mView.subscribeTopic(Preferences.PREF_KEY_NOTIFICATION_NEWS);
             mView.subscribeTopic(Preferences.PREF_KEY_NOTIFICATION_ANNOUNCEMENT);
+            mView.changePreferences(Preferences.PREF_KEY_NOTIFICATION_UPDATE, true);
             mView.changePreferences(Preferences.PREF_KEY_NOTIFICATION_NEWS, true);
             mView.changePreferences(Preferences.PREF_KEY_NOTIFICATION_ANNOUNCEMENT, true);
             mView.changePreferences(Preferences.PREF_KEY_FIRST_RUN, false);

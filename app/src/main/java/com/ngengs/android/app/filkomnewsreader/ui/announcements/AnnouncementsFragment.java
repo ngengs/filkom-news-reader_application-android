@@ -91,7 +91,7 @@ public class AnnouncementsFragment extends Fragment implements AnnouncementsCont
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Timber.d("onCreateView() called with: inflater = [" + inflater + "], container = [" +
                  container + "], savedInstanceState = [" + savedInstanceState + "]");
@@ -163,7 +163,7 @@ public class AnnouncementsFragment extends Fragment implements AnnouncementsCont
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putParcelableArrayList("DATA", new ArrayList<>(mPresenter.getAnnouncement()));
         outState.putInt("PAGE_NOW", mPresenter.getPageNow());
         outState.putInt("PAGE_TOTAL", mPresenter.getPageTotal());
@@ -242,21 +242,21 @@ public class AnnouncementsFragment extends Fragment implements AnnouncementsCont
     }
 
     @Override
-    public void openBrowser(String url) {
+    public void openBrowser(@NonNull String url) {
         Timber.d("openBrowser() called with: url = [" + url + "]");
         logClickEvent("open_browser");
         CommonUtils.openLinkInBrowser(getContext(), url);
     }
 
     @Override
-    public void openInAppBrowser(String url) {
+    public void openInAppBrowser(@NonNull String url) {
         Timber.d("openBrowser() called with: url = [" + url + "]");
         logClickEvent("open_in_app_browser");
         InAppBrowserOpenHelper.open(getContext(), url);
     }
 
     @Override
-    public void shareLink(String title, String url) {
+    public void shareLink(@NonNull String title, @NonNull String url) {
         Timber.d("shareLink() called with: title = [" + title + "], url = [" + url + "]");
         logClickEvent("share");
         CommonUtils.shareLink(getContext(), title, url);

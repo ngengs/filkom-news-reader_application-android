@@ -17,6 +17,7 @@
 
 package com.ngengs.android.app.filkomnewsreader.utils.logger;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
@@ -29,7 +30,7 @@ public class CrashlyticsTree extends Timber.Tree {
     private static final String CRASHLYTICS_KEY_MESSAGE = "message";
 
     @Override
-    protected void log(int priority, String tag, String message, Throwable t) {
+    protected void log(int priority, String tag, @NonNull String message, Throwable t) {
         if (priority == Log.VERBOSE || priority == Log.DEBUG || priority == Log.INFO) {
             return;
         }
