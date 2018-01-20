@@ -77,7 +77,9 @@ public class SettingFragment extends PreferenceFragmentCompat implements Setting
         Timber.d(
                 "updatePreference() called with: preference = [" + preference + "], key = [" + key +
                 "]");
-        if (preference == null) return;
+        if (preference == null) {
+            return;
+        }
         if (preference instanceof SwitchPreferenceCompat) {
             if (mPresenter != null && onChanged) {
                 boolean status = mSharedPreferences.getBoolean(key, true);

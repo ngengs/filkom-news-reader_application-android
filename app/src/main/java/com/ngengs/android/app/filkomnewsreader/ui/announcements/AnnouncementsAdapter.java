@@ -112,7 +112,9 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
             mDate = view.findViewById(R.id.item_announcement_date);
             mCards = view.findViewById(R.id.item_announcement_cards);
             mCards.setOnClickListener(view1 -> {
-                if (mClickListener != null) {mClickListener.onClick(getAdapterPosition());}
+                if (mClickListener != null) {
+                    mClickListener.onClick(getAdapterPosition());
+                }
             });
             mCards.setOnLongClickListener(
                     view1 -> mLongClickListener != null &&

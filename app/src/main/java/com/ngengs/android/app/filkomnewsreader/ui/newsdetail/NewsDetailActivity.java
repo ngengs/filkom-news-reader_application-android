@@ -17,6 +17,7 @@
 
 package com.ngengs.android.app.filkomnewsreader.ui.newsdetail;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -36,14 +37,15 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.ngengs.android.app.filkomnewsreader.R;
 import com.ngengs.android.app.filkomnewsreader.data.enumeration.Preferences;
 import com.ngengs.android.app.filkomnewsreader.data.model.News;
+import com.ngengs.android.app.filkomnewsreader.ui.imagesdetail.ImagesDetailActivity;
 import com.ngengs.android.app.filkomnewsreader.ui.inappbrowser.InAppBrowserOpenHelper;
 import com.ngengs.android.app.filkomnewsreader.utils.CommonUtils;
 import com.ngengs.android.app.filkomnewsreader.utils.NetworkUtils;
+import com.ngengs.android.app.filkomnewsreader.utils.glideapp.GlideApp;
 import com.ngengs.android.app.filkomnewsreader.utils.logger.AppLogger;
 
 import java.io.File;
@@ -54,7 +56,7 @@ import timber.log.Timber;
 
 public class NewsDetailActivity extends AppCompatActivity implements NewsDetailContract.View {
 
-    public final static String INTENT_ARGS_DATA = "DATA";
+    public static final String INTENT_ARGS_DATA = "DATA";
 
     private ImageView mImage;
     private TextView mTitle;
@@ -107,6 +109,11 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailC
             bundle.putString("screen", getClass().getSimpleName());
             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, bundle);
         }
+        mImage.setOnClickListener(v -> {
+            if (mPresenter.getNews() != null && mPresenter.getNews().getImage() != null) {
+                clickImage(mPresenter.getNews().getImage());
+            }
+        });
 
         setSupportActionBar(mToolbar);
         if (data != null) {
@@ -192,7 +199,7 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailC
 
     @Override
     public void setNewsImage(@NonNull String imageUrl) {
-        Glide.with(this).load(imageUrl).thumbnail(0.05f).into(mImage);
+        GlideApp.with(this).load(imageUrl).thumbnail(0.05f).into(mImage);
     }
 
     @Override
@@ -245,5 +252,11 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailC
         Bundle bundle = new Bundle();
         bundle.putString("type", type);
         mFirebaseAnalytics.logEvent("click", bundle);
+    }
+
+    private void clickImage(String imageUrl) {
+        Intent intent = new Intent(this, ImagesDetailActivity.class);
+        intent.putExtra(ImagesDetailActivity.INTENT_ARGS_DATA, imageUrl);
+        startActivity(intent);
     }
 }

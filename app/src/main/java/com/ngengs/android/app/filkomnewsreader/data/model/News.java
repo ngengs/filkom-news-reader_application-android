@@ -53,7 +53,7 @@ public class News implements Parcelable {
     @SerializedName("content")
     private List<NewsContent> content;
 
-    public News(String id){
+    public News(String id) {
         this.id = id;
     }
 

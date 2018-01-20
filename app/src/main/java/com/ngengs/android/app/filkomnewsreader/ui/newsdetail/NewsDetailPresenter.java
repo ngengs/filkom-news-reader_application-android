@@ -110,7 +110,7 @@ public class NewsDetailPresenter
         mLogger.d("onDataLoaded() called with: data = [" + data + "]");
         if (data != null) {
             News temp = mData;
-            if(temp == null){
+            if (temp == null) {
                 temp = new News(data.getId());
             }
             mData = data;

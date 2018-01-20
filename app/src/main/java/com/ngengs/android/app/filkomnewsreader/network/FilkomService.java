@@ -42,5 +42,5 @@ public interface FilkomService {
 
     @GET("announcement/search")
     Observable<AnnouncementListResponse> searchAnnouncement(@Query("q") String searchText,
-                                                    @Query("page") int page);
+                                                            @Query("page") int page);
 }

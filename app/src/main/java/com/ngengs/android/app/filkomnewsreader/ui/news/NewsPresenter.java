@@ -19,19 +19,12 @@ package com.ngengs.android.app.filkomnewsreader.ui.news;
 
 import com.ngengs.android.app.filkomnewsreader.data.enumeration.Types;
 import com.ngengs.android.app.filkomnewsreader.data.model.News;
-import com.ngengs.android.app.filkomnewsreader.data.response.NewsListResponseData;
 import com.ngengs.android.app.filkomnewsreader.data.sources.BaseSource;
 import com.ngengs.android.app.filkomnewsreader.data.sources.NewsSource;
-import com.ngengs.android.app.filkomnewsreader.network.Connection;
-import com.ngengs.android.app.filkomnewsreader.network.FilkomService;
 import com.ngengs.android.app.filkomnewsreader.utils.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class NewsPresenter
         implements NewsContract.Presenter, BaseSource.LoadListDataCallback<News> {
@@ -157,7 +150,9 @@ public class NewsPresenter
             mPageTotal = pageTotal;
             mPageNow = pageNow;
             if (data.size() > 0) {
-                if (mPageNow == 1) mView.clearNews();
+                if (mPageNow == 1) {
+                    mView.clearNews();
+                }
                 mData.addAll(data);
                 mView.addNews(data);
             }
@@ -174,8 +169,12 @@ public class NewsPresenter
     @Override
     public void onDataFinished() {
         mLogger.d("onDataFinished: %s", "");
-        if (mPageNow == 1) mView.showProgress(false);
-        if (mView.isSwipeRefreshLoading()) mView.stopSwipeRefreshLoading();
+        if (mPageNow == 1) {
+            mView.showProgress(false);
+        }
+        if (mView.isSwipeRefreshLoading()) {
+            mView.stopSwipeRefreshLoading();
+        }
         unbind();
     }
 }

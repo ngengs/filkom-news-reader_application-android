@@ -67,4 +67,17 @@ public class InAppBrowserPresenter implements InAppBrowserContract.Presenter {
         mTitle = title;
         mView.setAppTitle(mTitle);
     }
+
+    @Override
+    public boolean handleUri(String url) {
+        boolean handle = false;
+
+        if (url.contains("filkom.ub.ac.id")) {
+            handle = true;
+            mView.setAppUrl(url);
+            mView.loadBrowser(url);
+        }
+
+        return handle;
+    }
 }

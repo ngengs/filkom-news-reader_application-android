@@ -123,9 +123,15 @@ public final class InAppBrowserOpenHelper {
             }
             for (ResolveInfo resolveInfo : handlers) {
                 IntentFilter filter = resolveInfo.filter;
-                if (filter == null) continue;
-                if (filter.countDataAuthorities() == 0 || filter.countDataPaths() == 0) continue;
-                if (resolveInfo.activityInfo == null) continue;
+                if (filter == null) {
+                    continue;
+                }
+                if (filter.countDataAuthorities() == 0 || filter.countDataPaths() == 0) {
+                    continue;
+                }
+                if (resolveInfo.activityInfo == null) {
+                    continue;
+                }
                 return true;
             }
         } catch (RuntimeException e) {

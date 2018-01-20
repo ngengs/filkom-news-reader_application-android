@@ -56,11 +56,11 @@ interface AnnouncementsContract {
 
         void showProgress(boolean show);
 
-        void openBrowser(String url);
+        void openBrowser(@NonNull String url);
 
-        void openInAppBrowser(String url);
+        void openInAppBrowser(@NonNull String url);
 
-        void shareLink(String title, String url);
+        void shareLink(@NonNull String title, @NonNull String url);
 
         boolean isSwipeRefreshLoading();
 

@@ -1,5 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Filkom News Reader</string>
+    <string name="app_name_directory">Filkom News Reader</string>
 
     <string name="title_news">Berita</string>
     <string name="title_announcement">Pengumuman</string>
@@ -21,9 +22,12 @@
 
     <string name="settings_group_notification">Notifikasi</string>
     <string name="settings_group_browser">Browser</string>
+    <string name="settings_title_update_version_subscribe">Pemberitahuan Versi Aplikasi</string>
     <string name="settings_title_news_subscribe">Pemberitahuan Berita</string>
     <string name="settings_title_announcmenet_subscribe">Pemberitahuan Pengumuman</string>
     <string name="settings_title_app_browser">Buka Link Dalam Aplikasi</string>
+    <string name="settings_summary_update_version_subscribe">Pemberitahuan akan tampil saat terdapat versi terbaru pada aplikasi</string>
+    <string name="settings_summary_update_version_unsubscribe">Pemberitahuan tidak akan tampil saat terdapat versi terbaru pada aplikasi</string>
     <string name="settings_summary_news_subscribe">Pemberitahuan akan tampil saat terdapat berita baru dari Filkom</string>
     <string name="settings_summary_news_unsubscribe">Pemberitahuan tidak akan tampil saat terdapat berita baru dari Filkom</string>
     <string name="settings_summary_announcement_subscribe">Pemberitahuan akan tampil saat terdapat pengumuman baru dari Filkom</string>
@@ -32,9 +36,11 @@
     <string name="settings_summary_app_browser_off">Link dari filkom akan di buka di browser lain</string>
 
     <string name="notification_title_generic">Pemberitahuan Baru</string>
+    <string name="notification_title_update_version">Pembaruan Versi Aplikasi</string>
     <string name="notification_title_news">Berita Baru</string>
     <string name="notification_title_announcement">Pengumuman Baru</string>
     <string name="notification_message_generic">Terdapat pemberitahuan baru dari Filkom</string>
+    <string name="notification_message_update_version">Terdapat versi terbaru dari aplikasi, silahkan melakukan pembaharuan</string>
     <string name="notification_message_news" tools:ignore="PluralsCandidate">Terdapat %1$d berita baru dari Filkom</string>
     <string name="notification_message_announcement" tools:ignore="PluralsCandidate">Terdapat %1$d pengumuman baru dari Filkom</string>
     <string name="notification_message_more" tools:ignore="PluralsCandidate">+%1$d lainnya</string>

@@ -35,6 +35,13 @@
             android:summaryOn="@string/settings_summary_announcement_subscribe"
             android:title="@string/settings_title_announcmenet_subscribe"
             />
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="subscribe_update_version"
+            android:summaryOff="@string/settings_summary_announcement_unsubscribe"
+            android:summaryOn="@string/settings_summary_update_version_subscribe"
+            android:title="@string/settings_title_update_version_subscribe"
+            />
     </PreferenceCategory>
 
     <PreferenceCategory

@@ -18,6 +18,8 @@
 package com.ngengs.android.app.filkomnewsreader.ui.inappbrowser;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +28,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -37,8 +41,8 @@ import timber.log.Timber;
 
 public class InAppBrowserActivity extends AppCompatActivity implements InAppBrowserContract.View {
 
-    private InAppBrowserContract.Presenter mPresenter;
     public static final String TAG_URL = "URL";
+    private InAppBrowserContract.Presenter mPresenter;
     private TextView mTitle;
     private TextView mSubtitle;
     private WebView mWebview;
@@ -68,6 +72,20 @@ public class InAppBrowserActivity extends AppCompatActivity implements InAppBrow
             }
 
         });
+        mWebview.setWebViewClient(new WebViewClient() {
+            @TargetApi(Build.VERSION_CODES.N)
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                return mPresenter.handleUri(request.getUrl().toString());
+            }
+
+            @SuppressWarnings("deprecation")
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+                return mPresenter.handleUri(url);
+            }
+        });
         mPresenter.start();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         if (savedInstanceState == null) {
@@ -86,7 +104,7 @@ public class InAppBrowserActivity extends AppCompatActivity implements InAppBrow
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 super.onBackPressed();
                 break;

@@ -23,16 +23,25 @@ import com.ngengs.android.app.filkomnewsreader.ui.BasePresenter;
 import com.ngengs.android.app.filkomnewsreader.ui.BaseView;
 
 interface InAppBrowserContract {
-    interface Presenter extends BasePresenter{
+    interface Presenter extends BasePresenter {
         void selectMenuOpenBrowser();
+
         void selectMenuShare();
+
         void setTitle(String title);
+
+        boolean handleUri(String url);
     }
+
     interface View extends BaseView<Presenter> {
         void loadBrowser(@NonNull String url);
+
         void setAppTitle(@NonNull String title);
+
         void setAppUrl(@NonNull String url);
+
         void openOtherBrowser(@NonNull String url);
+
         void shareLink(@NonNull String url, @NonNull String title);
     }
 }
