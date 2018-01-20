@@ -29,6 +29,8 @@ interface InAppBrowserContract {
         void selectMenuShare();
 
         void setTitle(String title);
+
+        boolean handleUri(String url);
     }
 
     interface View extends BaseView<Presenter> {

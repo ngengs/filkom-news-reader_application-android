@@ -18,6 +18,8 @@
 package com.ngengs.android.app.filkomnewsreader.ui.inappbrowser;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +28,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -67,6 +71,20 @@ public class InAppBrowserActivity extends AppCompatActivity implements InAppBrow
                 mPresenter.setTitle(title);
             }
 
+        });
+        mWebview.setWebViewClient(new WebViewClient() {
+            @TargetApi(Build.VERSION_CODES.N)
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                return mPresenter.handleUri(request.getUrl().toString());
+            }
+
+            @SuppressWarnings("deprecation")
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+                return mPresenter.handleUri(url);
+            }
         });
         mPresenter.start();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
